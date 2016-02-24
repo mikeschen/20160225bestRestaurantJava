@@ -28,6 +28,13 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/cuisines/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("cuisines", Cuisine.all());
+      model.put("template", "templates/cuisines.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     /******************************************************
     Students: TODO: Create page to add a new restaurant
     *******************************************************/
