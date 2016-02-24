@@ -1,5 +1,9 @@
-<h1>$cuisine.getType() Restaurants</h1>
 cuisines.vtl
-#foreach($cuisine in $cuisines)
-  <h3><a href="/cuisines/$cuisinegetId()">$cuisine.getType()</a></h3>
+
+<h1>$cuisine.getType() Restaurants</h1>
+<!-- <form action="/cuisine/$cuisine.getId()" method="get">
+  <input id="cuisineId" name="cuisineId" type="hidden" value="$cuisine.getId()">
+</form> -->
+#foreach($restaurant in $cuisine.getRestaurants())
+  <h3>$restaurant.getName()</a></h3>
 #end
