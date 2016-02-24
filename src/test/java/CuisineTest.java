@@ -19,4 +19,11 @@ public class CuisineTest {
     Cuisine secondCuisine = new Cuisine("American");
     assertTrue(firstCuisine.equals(secondCuisine));
   }
+
+  @Test
+  public void save_savesIntoDatabase_true() {
+    Cuisine myCuisine = new Cuisine("Household chores");
+    myCuisine.save();
+    assertTrue(Cuisine.all().get(0).equals(myCuisine));
+  }
 }

@@ -31,9 +31,11 @@ public class Cuisine {
   //CREATE
   public void save() {
     try (Connection con = DB.sql2o.open()) {
-      /******************************************************
-        Students: TODO: Create sql query and execute update
-      *******************************************************/
+      String sql = "INSERT INTO cuisines (type) VALUES (:type)";
+      this.cuisine_id = (int) con.createQuery(sql, true)
+        .addParameter("type", this.type)
+        .executeUpdate()
+        .getKey();
     }
   }
 
