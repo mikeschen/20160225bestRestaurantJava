@@ -28,6 +28,25 @@ public class Cuisine {
     }
   }
 
+  public static Cuisine find(int id) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "SELECT * FROM cuisines where cuisine_id=:id";
+    Cuisine Cuisine = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Cuisine.class);
+    return Cuisine;
+  }
+}
+
+public List<Restaurant> getRestaurants() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM restaurants where cuisineId=:id";
+      return con.createQuery(sql)
+        .addParameter("id", this.cuisine_id)
+        .executeAndFetch(Restaurant.class);
+    }
+  }
+
   //CREATE
   public void save() {
     try (Connection con = DB.sql2o.open()) {
@@ -56,7 +75,7 @@ public class Cuisine {
       *******************************************************/
     }
   }
-
+  //DELETE
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
       /******************************************************

@@ -26,4 +26,24 @@ public class CuisineTest {
     myCuisine.save();
     assertTrue(Cuisine.all().get(0).equals(myCuisine));
   }
+
+  @Test
+  public void find_findCuisineInDatabase_true() {
+    Cuisine myCuisine = new Cuisine("Household chores");
+    myCuisine.save();
+    Cuisine savedCuisine = Cuisine.find(myCuisine.getId());
+    assertTrue(myCuisine.equals(savedCuisine));
+  }
+
+  @Test
+  public void getRestaurants_retrievesAllRestaurantsFromDatabase_restaurantslist() {
+    Cuisine myCuisine = new Cuisine("American");
+    myCuisine.save();
+    Restaurant firstRestaurant = new Restaurant("Killer Burger", myCuisine.getId());
+    firstRestaurant.save();
+    Restaurant secondRestaurant = new Restaurant("Los Pollos", myCuisine.getId());
+    secondRestaurant.save();
+    Restaurant[] restaurants = new Restaurant[] { firstRestaurant, secondRestaurant };
+    assertTrue(myCuisine.getRestaurants().containsAll(Arrays.asList(restaurants)));
+  }
 }

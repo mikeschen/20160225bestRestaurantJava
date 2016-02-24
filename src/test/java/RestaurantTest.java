@@ -42,13 +42,13 @@ public class RestaurantTest {
     assertTrue(myRestaurant.equals(savedRestaurant));
   }
 
-  // @Test
-  // public void save_savesCatIdIntoDB_true() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   Task myTask = new Task("Mow the lawn", myCategory.getId());
-  //   myTask.save();
-  //   Task savedTask = Task.find(myTask.getId());
-  //   assertEquals(savedTask.getCategoryId(), myCategory.getId());
-  // }
+  @Test
+  public void save_savesCuisineIdIntoDB_true() {
+    Cuisine myCuisine = new Cuisine("Household chores");
+    myCuisine.save();
+    Restaurant myRestaurant = new Restaurant("Killer Burger", myCuisine.getId());
+    myRestaurant.save();
+    Restaurant savedRestaurant = Restaurant.find(myRestaurant.getId());
+    assertEquals(savedRestaurant.getCuisineId(), myCuisine.getId());
+  }
 }
