@@ -84,11 +84,4 @@ public List<Restaurant> getRestaurants() {
       .executeUpdate();
     }
   }
-
-  /******************************************************
-    Students:
-    TODO: Create find method
-    TODO: Create method to get restaurants
-  *******************************************************/
-
 }

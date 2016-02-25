@@ -32,12 +32,6 @@
   <ul>
     #foreach($cuisine in $cuisines)
       <li><a href="/cuisines/$cuisine.getId()">$cuisine.getType()</a>
-        <!-- <form action="/update/restaurant/$restaurant.getId()" method="post">
-          <label for="restaurantName">Update Restaurant Name</label>
-        <input id="restaurantName" name="restaurantName" type="text">
-        <button type="submit" id="$restaurant.getId()" class="btn btn-warning">Update</button>
-      </form> -->
-
       <form action="/delete/cuisine/$cuisine.getId()" method="post">
         <input id="cuisineId" name="cuisineId" type="hidden" value="$cuisine.getId()">
         <button type="submit" id="$cuisine.getId()" class="btn btn-danger">Delete</button>
