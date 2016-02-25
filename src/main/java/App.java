@@ -31,20 +31,22 @@ public class App {
     get("/cuisines/:id", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("cuisine", Cuisine.find(Integer.parseInt(request.params(":id"))));
-
-      //find restaurants according to cuisine id
       model.put("restaurants", Restaurant.find(Integer.parseInt(request.params(":id"))));
       model.put("template", "templates/cuisines.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // post("/cuisines/:id", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   Cuisine cuisine = Cuisine.find(Integer.parseInt(request.queryParams("cuisineId")));
-    //   model.put("cuisines", cuisine);
-    //   model.put("template", "templates/cuisines.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
+    post("/cuisines", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      int cuisineId = Integer.parseInt(request.queryParams("cuisineId"));
+      Restaurant newRestaurant = new Restaurant(name, cuisineId);
+      newRestaurant.save();
+      model.put("cuisine", Cuisine.find(cuisineId));
+      model.put("restaurant", newRestaurant);
+      model.put("template", "templates/cuisines.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
     /******************************************************
     Students: TODO: Create page to add a new restaurant

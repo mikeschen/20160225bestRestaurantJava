@@ -8,10 +8,9 @@
   <button type="submit" class="btn btn-success">Add Cuisine</button>
 </form>
 
-
 <p> Add restaurants to any cuisine:</p>
 
-<form action="/restaurants" method="post">
+<form action="/cuisines" method="post">
   <div class="form-group">
     <label for="cuisineId">Select a Cuisine</label>
       <select id='cuisineId' name='cuisineId' type='text'>
@@ -28,12 +27,11 @@
   <button type="submit" class="btn btn-primary">Add Restaurant</button>
 </form>
 
-
 #if($cuisines)
   <p>Click on a cuisine to see its restaurants:</p>
   <ul>
     #foreach($cuisine in $cuisines)
-      <li><a href="/cuisines/$cuisine.getId() ">$cuisine.getType()</a></li>
+      <li><a href="/cuisines/$cuisine.getId()">$cuisine.getType()</a></li>
     #end
   </ul>
 #else
