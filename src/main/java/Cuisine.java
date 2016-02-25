@@ -60,7 +60,7 @@ public List<Restaurant> getRestaurants() {
 
   //READ
   public static List<Cuisine> all() {
-    String sql = "SELECT cuisine_id, type FROM cuisines";
+    String sql = "SELECT cuisine_id, type FROM cuisines ORDER by type ASC";
     try (Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Cuisine.class);
     }
@@ -76,11 +76,12 @@ public List<Restaurant> getRestaurants() {
     }
   }
   //DELETE
-  public void delete() {
+  public static void delete(int id) {
+    String sql = "DELETE FROM cuisines WHERE cuisine_id= :id;";
     try(Connection con = DB.sql2o.open()) {
-      /******************************************************
-        Students: TODO: Create sql query and execute update
-      *******************************************************/
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeUpdate();
     }
   }
 

@@ -1,8 +1,15 @@
 cuisines.vtl
 <h1>$cuisine.getType() Restaurants</h1>
-<!-- <form action="/cuisine/$cuisine.getId()" method="get">
-  <input id="cuisineId" name="cuisineId" type="hidden" value="$cuisine.getId()">
-</form> -->
+
 #foreach($restaurant in $cuisine.getRestaurants())
-  <h3>$restaurant.getName()</a></h3>
+  <h3>$restaurant.getName()</h3>
+  <form action="/update/restaurant/$cuisine.getId()" method="get">
+    <input id="restaurantId" name="restaurantId" type="hidden" value="$restaurant.getId()">
+  <button type="submit" id="$restaurant.getId()" class="btn btn-warning">Update</button>
+  </form>
+  <form action="/delete/restaurant/$restaurant.getId()" method="post">
+    <input id="cuisineId" name="cuisineId" type="hidden" value="$cuisine.getId()">
+    <button type="submit" id="$restaurant.getId()" class="btn btn-danger">Delete</button>
+  </form>
 #end
+<a href="/">Go Back To Main</a>

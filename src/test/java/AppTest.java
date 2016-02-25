@@ -45,7 +45,7 @@ public class AppTest extends FluentTest {
     firstRestaurant.save();
     Restaurant secondRestaurant = new Restaurant("Los Pollos", myCuisine.getId());
     secondRestaurant.save();
-    String cuisinePath = String.format("http://localhost:4567/%d", myCuisine.getId());
+    String cuisinePath = String.format("http://localhost:4567/cuisines/%d", myCuisine.getId());
     goTo(cuisinePath);
     assertThat(pageSource()).contains("Killer Burger");
     assertThat(pageSource()).contains("Los Pollos");

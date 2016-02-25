@@ -67,26 +67,21 @@ public static Restaurant find(int id){
   //UPDATE
   public void update(String newName) {
     this.name = newName;
+    String sql = "UPDATE restaurants SET name = :name WHERE id = :id";
     try(Connection con = DB.sql2o.open()) {
-      /******************************************************
-        Students: TODO: Display all restaurants on main page
-      *******************************************************/
+      con.createQuery(sql)
+        .addParameter("name", newName)
+        .addParameter("id", id)
+        .executeUpdate();
       }
   }
 
-  //DELETE
-  public void delete() {
+  public static void delete(int id) {
+    String sql = "DELETE FROM restaurants WHERE id= :id;";
     try(Connection con = DB.sql2o.open()) {
-      /******************************************************
-        Students: TODO: Display all restaurants on main page
-      *******************************************************/
+        con.createQuery(sql)
+          .addParameter("id", id)
+          .executeUpdate();
     }
   }
-
-  /******************************************************
-    Students:
-    TODO: Create find method
-    TODO: Create method to get cuisine type
-  *******************************************************/
-
 }

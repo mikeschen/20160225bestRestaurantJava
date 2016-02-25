@@ -48,6 +48,49 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/delete/cuisine/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.queryParams("cuisineId"));
+      Cuisine.delete(id);
+      model.put("cuisines", Cuisine.all());
+      // model.put("restaurants", Restaurant.all());
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/delete/restaurant/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int cuisineId = Integer.parseInt(request.queryParams("cuisineId"));
+      int id = Integer.parseInt(request.params(":id"));
+      Restaurant.delete(id);
+      model.put("cuisine", Cuisine.find(cuisineId));
+      model.put("cuisines", Cuisine.all());
+      model.put("restaurants", Restaurant.all());
+      model.put("template", "templates/cuisines.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/update/restaurant/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int restaurantId = Integer.parseInt(request.queryParams("restaurantId"));
+      Restaurant currentRestaurant = Restaurant.find(restaurantId);
+      model.put("restaurant", currentRestaurant);
+      model.put("template", "templates/restaurant-update.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/update/restaurant/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int restaurantId = Integer.parseInt(request.queryParams("restaurantId"));
+      String restaurantName = request.queryParams("restaurantName");
+      Restaurant myRestaurant = Restaurant.find(restaurantId);
+      myRestaurant.update(restaurantName);
+      model.put("cuisines", Cuisine.all());
+      model.put("restaurants", Restaurant.all());
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     /******************************************************
     Students: TODO: Create page to add a new restaurant
     *******************************************************/

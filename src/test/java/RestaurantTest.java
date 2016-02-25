@@ -36,7 +36,7 @@ public class RestaurantTest {
 
   @Test
   public void find_findsRestaurantinDatabase_true() {
-    Restaurant myRestaurant = new Restaurant("Mow the lawn", 1);
+    Restaurant myRestaurant = new Restaurant("Killer Burger", 1);
     myRestaurant.save();
     Restaurant savedRestaurant = Restaurant.find(myRestaurant.getId());
     assertTrue(myRestaurant.equals(savedRestaurant));
@@ -44,11 +44,32 @@ public class RestaurantTest {
 
   @Test
   public void save_savesCuisineIdIntoDB_true() {
-    Cuisine myCuisine = new Cuisine("Household chores");
+    Cuisine myCuisine = new Cuisine("American");
     myCuisine.save();
     Restaurant myRestaurant = new Restaurant("Killer Burger", myCuisine.getId());
     myRestaurant.save();
     Restaurant savedRestaurant = Restaurant.find(myRestaurant.getId());
     assertEquals(savedRestaurant.getCuisineId(), myCuisine.getId());
+  }
+
+  @Test
+  public void delete_deletesRestaurantFromDB_true() {
+    Cuisine myCuisine = new Cuisine("Household chores");
+    myCuisine.save();
+    Restaurant myRestaurant = new Restaurant("Killer Burger", myCuisine.getId());
+    myRestaurant.save();
+    assertTrue(Restaurant.all().contains(myRestaurant));
+    myRestaurant.delete(myRestaurant.getId());
+    assertFalse(Restaurant.all().contains(myRestaurant));
+  }
+
+  @Test
+  public void update_updateRestaurantFromDB_true() {
+    Cuisine myCuisine = new Cuisine("Household chores");
+    myCuisine.save();
+    Restaurant myRestaurant = new Restaurant("Killer Burger", myCuisine.getId());
+    myRestaurant.save();
+    myRestaurant.update("Los Pollos");
+    assertEquals(myRestaurant.getName(),"Los Pollos");
   }
 }
